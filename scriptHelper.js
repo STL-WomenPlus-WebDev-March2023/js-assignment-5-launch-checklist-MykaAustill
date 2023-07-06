@@ -26,30 +26,24 @@ function validateInput(testInput) {
 }
 
 function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoMass) {
-    console.log("!!!");
-    console.log(list);
+    
 
     if ( validateInput(pilotName)=== "Empty" || validateInput(copilotName)=== "Empty" || validateInput(fuelLevel)=== "Empty" ||  validateInput(cargoMass)=== "Empty") {
         window.alert("All fields are required!");
-        //list.style.visibility = "visible";
         document.getElementById("faultyItems").style.visibility  = "visible";
         document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
         document.getElementById("launchStatus").style.color = "red";
 
-    } if (fuelLevel < 10000) {
-
-        //list.style.visibility = "visible";
+    } else if (fuelLevel >= 10000 && cargoMass < 10000) {
         document.getElementById("faultyItems").style.visibility = "visible";
-        document.getElementById("launchStatus").innerHTML = "Shuttle is not ready for launch";
-        document.getElementById("launchStatus").style.color = "red";
+        document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
+        document.getElementById("launchStatus").style.color = "green";
         document.getElementById("pilotStatus").innerHTML = `Pilot: ${pilotName}`;
         document.getElementById("copilotStatus").innerHTML = `CoPilot: ${copilotName}`;
-        document.getElementById("fuelStatus").innerHTML = "Fuel level is too low for launch";
+        document.getElementById("fuelStatus").innerHTML = "Fuel level is high enough for launch";
         document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
 
-    } if(cargoMass > 10000) {
-        
-        //list.style.visibility = "visible";
+    } else if(cargoMass > 10000 && fuelLevel >= 10000) {
         document.getElementById("faultyItems").style.visibility = "visible";
         document.getElementById("launchStatus").innerHTML = "Shuttle is not ready for launch";
         document.getElementById("launchStatus").style.color = "red";
@@ -57,15 +51,23 @@ function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargo
         document.getElementById("copilotStatus").innerHTML = `CoPilot: ${copilotName}`;
         document.getElementById("fuelStatus").innerHTML = "Fuel level is high enough for launch";
         document.getElementById("cargoStatus").innerHTML = "Cargo mass is too high for launch"; 
-    } else {
-        //list.style.visibility = "visible";
+
+    } else if (cargoMass < 10000 && fuelLevel < 10000){
         document.getElementById("faultyItems").style.visibility = "visible";
-        document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch";
-        document.getElementById("launchStatus").style.color = "green";
+        document.getElementById("launchStatus").innerHTML = "Shuttle is not for launch";
+        document.getElementById("launchStatus").style.color = "red";
         document.getElementById("pilotStatus").innerHTML = `Pilot: ${pilotName}`;
         document.getElementById("copilotStatus").innerHTML = `CoPilot: ${copilotName}`;
-        document.getElementById("fuelStatus").innerHTML = "Fuel level is high enough for launch";
+        document.getElementById("fuelStatus").innerHTML = "Fuel level is too low for launch";
         document.getElementById("cargoStatus").innerHTML = "Cargo mass is low enough for launch";
+    } else {
+        document.getElementById("faultyItems").style.visibility = "visible";
+        document.getElementById("launchStatus").innerHTML = "Shuttle is not ready for launch";
+        document.getElementById("launchStatus").style.color = "red";
+        document.getElementById("pilotStatus").innerHTML = `Pilot: ${pilotName}`;
+        document.getElementById("copilotStatus").innerHTML = `CoPilot: ${copilotName}`;
+        document.getElementById("fuelStatus").innerHTML = "Fuel level is too low for launch";
+        document.getElementById("cargoStatus").innerHTML = "Cargo mass is too high for launch";
     }
 }
 
